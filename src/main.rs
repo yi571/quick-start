@@ -1,12 +1,15 @@
 use std::process::Command;
 
-use execute::Execute;
+//use execute::Execute;
 
-use bindings::{ 
-    Windows::Win32::WindowsAndMessaging::*,
-};
+// use bindings::{ 
+//     Windows::Win32::WindowsAndMessaging::*,
+// };
 
 fn main() {
+    if !cfg!(target_os = "windows"){
+        return;
+    }
     println!("開始啟動程序");
     //let open_listener = ["C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe"];
 
@@ -34,14 +37,16 @@ fn main() {
         //     eprintln!("Interrupted!");
         // }
 
-        _ = command.execute();
+        _ = command.spawn();
+
+        //println!("{:#?}", output);
 
         println!("{}啟動指令已發出", item.name);
     }
     //println!("啟動程序執行完成");
-    unsafe{
-        MessageBoxW(None, "啟動程序執行完成", "", MESSAGEBOX_STYLE::MB_OK);
-    }
+    // unsafe{
+    //     MessageBoxW(None, "啟動程序執行完成", "", MESSAGEBOX_STYLE::MB_OK);
+    // }
 
     
 }
